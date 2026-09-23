@@ -1,0 +1,14 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  eager?: boolean;
+}
+
+const { src, alt, class: className = "", eager = false } = Astro.props;
+---
+
+<figure class:list={["overflow-hidden rounded-xl border border-line bg-surface", className]}>
+  <img src={src} alt={alt} width="1600" height="1000" loading={eager ? "eager" : "lazy"} decoding="async" class="block h-auto w-full" />
+</figure>

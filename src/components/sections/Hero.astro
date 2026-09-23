@@ -1,0 +1,29 @@
+---
+import { AppleLogo } from "@phosphor-icons/react/ssr";
+import Screenshot from "../ui/Screenshot.astro";
+import { links } from "../../data/links";
+---
+
+<section id="top" class="px-6 pt-24 pb-20 md:pt-32">
+  <div class="mx-auto flex max-w-5xl flex-col items-center text-center">
+    <img data-reveal src="/logo.png" alt="Jelly app icon" width="96" height="96" class="size-20 rounded-[22px] md:size-24 md:rounded-[26px]" />
+    <h1 data-reveal style="--d:1" class="mt-8 font-display text-6xl leading-[0.95] font-semibold tracking-tighter text-balance md:text-8xl">
+      Sweet terminal <span class="block font-serif font-normal tracking-normal italic text-bio md:inline">for the Mac.</span>
+    </h1>
+    <p data-reveal style="--d:2" class="mt-7 max-w-2xl text-lg leading-relaxed text-pretty text-muted">
+      A native macOS terminal that keeps your shells in named sessions of tabs and split panes. GPU-rendered, configured in one TOML file.
+    </p>
+    <div data-reveal style="--d:3" class="mt-9 flex flex-col items-center gap-3 sm:flex-row">
+      <a href={links.download} class="inline-flex items-center gap-2 rounded-lg bg-fg px-5 py-2.5 text-sm font-medium text-ink transition-opacity hover:opacity-90">
+        <AppleLogo size={16} weight="fill" />
+        Download for macOS
+      </a>
+      <a href={links.github} class="rounded-lg border border-line px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:bg-white/5">View on GitHub</a>
+    </div>
+    <p data-reveal style="--d:4" class="mt-5 font-mono text-xs text-muted">Requires macOS 26 or later · Preview</p>
+  </div>
+
+  <div data-reveal style="--d:2" class="mx-auto mt-20 max-w-5xl">
+    <Screenshot src="/screenshots/hero.svg" alt="The Jelly window with sessions, tabs and split panes" eager />
+  </div>
+</section>

@@ -1,0 +1,14 @@
+---
+import { links } from "../../data/links";
+---
+
+<footer class="border-t border-line px-6 py-8">
+  <div class="mx-auto flex max-w-5xl flex-col gap-4 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+    <p>© {new Date().getFullYear()} Jelly</p>
+    <div class="flex gap-6">
+      <a href={links.releases} class="transition-colors hover:text-fg">Releases</a>
+      <a href={links.docs} class="transition-colors hover:text-fg">Docs</a>
+      <a href={links.github} class="transition-colors hover:text-fg">GitHub</a>
+    </div>
+  </div>
+</footer>

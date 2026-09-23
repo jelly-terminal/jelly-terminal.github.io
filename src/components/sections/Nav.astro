@@ -1,0 +1,20 @@
+---
+import { GithubLogo } from "@phosphor-icons/react/ssr";
+import { links } from "../../data/links";
+---
+
+<nav class="sticky top-0 z-50 border-b border-line bg-ink/80 backdrop-blur">
+  <div class="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
+    <a href="#top" class="flex items-center gap-2.5">
+      <img src="/logo.png" alt="" width="24" height="24" class="size-6 rounded-md" />
+      <span class="font-medium">Jelly</span>
+    </a>
+    <div class="flex items-center gap-6 text-sm text-muted">
+      <a href="#features" class="hidden transition-colors hover:text-fg sm:block">Features</a>
+      <a href={links.docs} class="hidden transition-colors hover:text-fg sm:block">Docs</a>
+      <a href={links.github} aria-label="Jelly on GitHub" class="transition-colors hover:text-fg">
+        <GithubLogo size={18} weight="fill" />
+      </a>
+    </div>
+  </div>
+</nav>

@@ -1,43 +1,29 @@
-# Astro Starter Kit: Minimal
+# jelly-terminal.github.io
+
+Landing page for [Jelly](https://github.com/jelly-terminal/jelly), a sweet terminal for the Mac.
+
+Astro + React islands, Tailwind CSS v4, Phosphor icons.
 
 ```sh
-bun create astro@latest -- --template minimal
+bun install
+bun dev       # http://localhost:4321
+bun run build # static site in dist/
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Layout
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```
+src/
+  layouts/Layout.astro          head, fonts, scroll-reveal observer
+  pages/index.astro             section order
+  components/sections/          one file per page section
+  components/islands/           ScrollShowcase (React)
+  components/ui/                Screenshot, SectionHeader
+  data/                         features, links
+  styles/global.css             colour tokens and reveal animation
+public/screenshots/             app screenshots (placeholders for now)
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Add `data-reveal` (and `style="--d:N"` to stagger) to any element to fade it in on scroll.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+To swap in real screenshots, drop PNGs into `public/screenshots/` and update the paths in `Hero.astro` and `ScrollShowcase.tsx`.

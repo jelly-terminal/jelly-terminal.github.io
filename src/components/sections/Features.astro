@@ -1,0 +1,27 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import { features } from "../../data/features";
+---
+
+<section id="features" class="scroll-mt-14 border-t border-line px-6 py-24">
+  <div class="mx-auto max-w-5xl">
+    <SectionHeader title="Everything you need, nothing you don't.">
+      Built in Swift for macOS 26, with the fast parts on the GPU and the fiddly parts in a text file.
+    </SectionHeader>
+
+    <div class="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        features.map((feature, index) => {
+          const Icon = feature.icon;
+          return (
+            <div data-reveal style={`--d:${index % 3}`}>
+              <Icon size={22} className="text-accent" />
+              <h3 class="mt-4 font-medium">{feature.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{feature.body}</p>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
