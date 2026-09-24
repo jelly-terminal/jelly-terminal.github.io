@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jelly-terminal.github.io/sitemap-index.xml

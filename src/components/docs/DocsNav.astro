@@ -1,0 +1,30 @@
+---
+import { GithubLogo, List, MagnifyingGlass } from "@phosphor-icons/react/ssr";
+import { links } from "../../data/links";
+---
+
+<header class="glass sticky top-0 z-50 border-x-0 border-t-0 bg-ink/70">
+  <div class="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6">
+    <button type="button" data-sidebar-toggle aria-label="Open navigation" class="-ml-1 rounded-lg p-2 text-muted transition-colors hover:text-fg lg:hidden">
+      <List size={20} />
+    </button>
+    <a href="/" data-astro-reload class="flex items-center gap-2.5">
+      <img src="/logo.png" alt="" width="24" height="24" class="size-6 rounded-md" />
+      <span class="font-medium">Jelly</span>
+    </a>
+    <a href="/docs/start/introduction/" class="rounded-md border border-line px-2 py-0.5 text-xs text-accent">Docs</a>
+    <div class="flex-1"></div>
+    <button
+      type="button"
+      data-search-open
+      class="glass flex h-9 w-9 items-center gap-2 rounded-xl px-2.5 text-sm text-muted transition-colors hover:text-fg sm:w-60"
+    >
+      <MagnifyingGlass size={16} class="shrink-0" />
+      <span class="hidden flex-1 text-left sm:block">Search docs</span>
+      <kbd class="key hidden text-xs sm:inline-block">⌘K</kbd>
+    </button>
+    <a href={links.github} aria-label="Jelly on GitHub" class="p-2 text-muted transition-colors hover:text-fg">
+      <GithubLogo size={18} weight="fill" />
+    </a>
+  </div>
+</header>

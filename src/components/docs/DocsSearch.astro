@@ -1,0 +1,160 @@
+<dialog
+  data-search
+  class="glass fixed left-1/2 top-[12vh] m-0 w-[min(36rem,calc(100vw-2rem))] -translate-x-1/2 overflow-hidden rounded-2xl bg-surface/95 p-0 text-fg shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm"
+>
+  <input
+    data-search-input
+    type="search"
+    placeholder="Search the docs"
+    autocomplete="off"
+    spellcheck="false"
+    class="w-full border-b border-line bg-transparent px-5 py-4 text-base outline-none placeholder:text-muted"
+  />
+  <ul data-search-results class="max-h-[50vh] overflow-y-auto p-2"></ul>
+  <p class="border-t border-line px-5 py-2.5 text-xs text-muted">↑↓ to move · ↩ to open · Esc to close</p>
+</dialog>
+
+<script>
+  import { navigate } from "astro:transitions/client";
+
+  interface Doc {
+    title: string;
+    description: string;
+    group: string;
+    url: string;
+    text: string;
+  }
+
+  let docs: Doc[] | null = null;
+  let matches: Doc[] = [];
+  let selected = 0;
+  let listeners: AbortController | undefined;
+
+  const score = (doc: Doc, terms: string[]) => {
+    const title = doc.title.toLowerCase();
+    const description = doc.description.toLowerCase();
+    const text = doc.text.toLowerCase();
+    let total = 0;
+    for (const term of terms) {
+      if (title.includes(term)) total += 10;
+      else if (description.includes(term)) total += 4;
+      else if (text.includes(term)) total += 1;
+      else return 0;
+    }
+    return total;
+  };
+
+  const excerpt = (doc: Doc, terms: string[]) => {
+    const lower = doc.text.toLowerCase();
+    const at = terms.map((term) => lower.indexOf(term)).find((index) => index >= 0);
+    if (at === undefined || doc.title.toLowerCase().includes(terms[0])) return doc.description;
+    return `…${doc.text.slice(Math.max(0, at - 30), at + 90)}…`;
+  };
+
+  const initSearch = () => {
+    listeners?.abort();
+    listeners = new AbortController();
+    const { signal } = listeners;
+    const dialog = document.querySelector<HTMLDialogElement>("[data-search]")!;
+    const input = dialog.querySelector<HTMLInputElement>("[data-search-input]")!;
+    const list = dialog.querySelector<HTMLUListElement>("[data-search-results]")!;
+
+    const render = () => {
+      list.replaceChildren(
+        ...matches.slice(0, 8).map((doc, index) => {
+          const item = document.createElement("li");
+          const link = document.createElement("a");
+          link.href = doc.url;
+          link.className = "block rounded-xl px-3 py-2.5 aria-selected:bg-white/8";
+          link.setAttribute("aria-selected", String(index === selected));
+          link.addEventListener("click", () => dialog.close());
+          const title = document.createElement("span");
+          title.className = "flex items-baseline justify-between gap-3 text-sm font-medium";
+          title.textContent = doc.title;
+          const group = document.createElement("span");
+          group.className = "text-xs font-normal text-muted";
+          group.textContent = doc.group;
+          title.append(group);
+          const snippet = document.createElement("span");
+          snippet.className = "mt-0.5 block truncate text-xs text-muted";
+          snippet.textContent = excerpt(doc, input.value.toLowerCase().split(/\s+/).filter(Boolean));
+          link.append(title, snippet);
+          item.append(link);
+          return item;
+        }),
+      );
+      if (matches.length === 0 && input.value) {
+        const empty = document.createElement("li");
+        empty.className = "px-3 py-6 text-center text-sm text-muted";
+        empty.textContent = "Nothing found";
+        list.append(empty);
+      }
+    };
+
+    const search = () => {
+      const terms = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+      matches =
+        docs && terms.length
+          ? docs
+              .map((doc) => ({ doc, value: score(doc, terms) }))
+              .filter((match) => match.value > 0)
+              .sort((a, b) => b.value - a.value)
+              .map((match) => match.doc)
+          : (docs ?? []).slice(0, 8);
+      selected = 0;
+      render();
+    };
+
+    const open = async () => {
+      dialog.showModal();
+      input.select();
+      if (!docs) {
+        docs = await (await fetch("/search.json")).json();
+        search();
+      }
+    };
+
+    document.querySelectorAll("[data-search-open]").forEach((button) => button.addEventListener("click", open, { signal }));
+    document.addEventListener(
+      "keydown",
+      (event) => {
+        const typing = event.target instanceof HTMLElement && /input|textarea/i.test(event.target.tagName);
+        if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+          event.preventDefault();
+          if (dialog.open) dialog.close();
+          else open();
+        } else if (event.key === "/" && !typing && !dialog.open) {
+          event.preventDefault();
+          open();
+        }
+      },
+      { signal },
+    );
+    dialog.addEventListener(
+      "click",
+      (event) => {
+        if (event.target === dialog) dialog.close();
+      },
+      { signal },
+    );
+    input.addEventListener("input", search, { signal });
+    input.addEventListener(
+      "keydown",
+      (event) => {
+        if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+          event.preventDefault();
+          const count = Math.min(matches.length, 8);
+          if (count === 0) return;
+          selected = (selected + (event.key === "ArrowDown" ? 1 : count - 1)) % count;
+          render();
+        } else if (event.key === "Enter" && matches[selected]) {
+          dialog.close();
+          navigate(matches[selected].url);
+        }
+      },
+      { signal },
+    );
+  };
+
+  document.addEventListener("astro:page-load", initSearch);
+</script>

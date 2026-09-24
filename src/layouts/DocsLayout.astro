@@ -1,0 +1,108 @@
+---
+import type { MarkdownHeading } from "astro";
+import { ArrowLeft, ArrowRight, PencilSimple } from "@phosphor-icons/react/ssr";
+import { ClientRouter } from "astro:transitions";
+import Layout from "./Layout.astro";
+import DocsNav from "../components/docs/DocsNav.astro";
+import DocsSidebar from "../components/docs/DocsSidebar.astro";
+import DocsSearch from "../components/docs/DocsSearch.astro";
+import DocsToc from "../components/docs/DocsToc.astro";
+import { docsGroups } from "../data/docsGroups";
+import { links } from "../data/links";
+import { getDocsOrder, groupIdOf, urlOf, type DocEntry } from "../lib/docs";
+
+interface Props {
+  entry: DocEntry;
+  headings: MarkdownHeading[];
+}
+
+const { entry, headings } = Astro.props;
+const order = await getDocsOrder();
+const index = order.findIndex((candidate) => candidate.id === entry.id);
+const previous = order[index - 1];
+const next = order[index + 1];
+const group = docsGroups.find((candidate) => candidate.id === groupIdOf(entry));
+const title = `${entry.data.title} · Jelly Docs`;
+const canonical = new URL(urlOf(entry), Astro.site).href;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      headline: entry.data.title,
+      description: entry.data.description,
+      url: canonical,
+      image: new URL(`/og/${entry.id}.png`, Astro.site).href,
+      isPartOf: { "@type": "WebSite", name: "Jelly", url: Astro.site?.href },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Docs", item: new URL("/docs/start/introduction/", Astro.site).href },
+        { "@type": "ListItem", position: 2, name: group?.title, item: new URL("/docs/start/introduction/", Astro.site).href },
+        { "@type": "ListItem", position: 3, name: entry.data.title, item: canonical },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={title} description={entry.data.description} image={`/og/${entry.id}.png`} type="article">
+  <ClientRouter slot="head" />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <DocsNav />
+  <DocsSearch />
+  <div class="mx-auto flex max-w-7xl gap-10 px-4 sm:px-6">
+    <DocsSidebar currentId={entry.id} />
+    <main class="min-w-0 flex-1 py-10 lg:py-12">
+      <article class="max-w-3xl">
+        <p class="mb-3 text-sm font-medium text-accent">{group?.title}</p>
+        <h1 class="font-display text-4xl font-bold tracking-tight sm:text-5xl">{entry.data.title}</h1>
+        <p class="mt-4 text-lg text-muted">{entry.data.description}</p>
+        <div class="docs-prose mt-10">
+          <slot />
+        </div>
+        <div class="mt-16 grid gap-3 sm:grid-cols-2">
+          {
+            previous ? (
+              <a href={urlOf(previous)} class="glass group rounded-2xl p-4 transition-colors hover:border-accent/40">
+                <span class="flex items-center gap-1.5 text-xs text-muted"><ArrowLeft size={12} /> Previous</span>
+                <span class="mt-1 block font-medium">{previous.data.title}</span>
+              </a>
+            ) : (
+              <span />
+            )
+          }
+          {
+            next && (
+              <a href={urlOf(next)} class="glass group rounded-2xl p-4 text-right transition-colors hover:border-accent/40">
+                <span class="flex items-center justify-end gap-1.5 text-xs text-muted">Next <ArrowRight size={12} /></span>
+                <span class="mt-1 block font-medium">{next.data.title}</span>
+              </a>
+            )
+          }
+        </div>
+        <a
+          href={`${links.repo}/edit/main/src/content/docs/${entry.id}.md`}
+          class="mt-8 inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-fg"
+        >
+          <PencilSimple size={14} /> Edit this page on GitHub
+        </a>
+      </article>
+    </main>
+    <DocsToc headings={headings} />
+  </div>
+  <script>
+    document.addEventListener("astro:page-load", () => {
+      document.querySelectorAll<HTMLElement>(".docs-prose h2[id], .docs-prose h3[id]").forEach((heading) => {
+        const anchor = document.createElement("a");
+        anchor.href = `#${heading.id}`;
+        anchor.className = "heading-anchor";
+        anchor.setAttribute("aria-label", "Link to this section");
+        anchor.textContent = "#";
+        heading.prepend(anchor);
+      });
+    });
+  </script>
+</Layout>
