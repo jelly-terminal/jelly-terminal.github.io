@@ -1,7 +1,7 @@
 ---
 title: Tabs
 description: "Open, name, reorder and switch tabs, and how a tab's title follows the process running inside it."
-order: 3
+order: 2
 ---
 
 Each tab is one workspace view: a single terminal or a layout of split panes.

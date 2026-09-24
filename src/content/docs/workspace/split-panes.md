@@ -1,7 +1,7 @@
 ---
 title: Split panes
 description: "Split a tab right or down as deep as you like, move focus by keyboard, zoom one pane, and resize or equalize."
-order: 4
+order: 3
 ---
 
 Panes are detached cards with rounded corners and a gap between them. The focused pane gets an accent border, and each has a header with its title and split, zoom and close buttons.

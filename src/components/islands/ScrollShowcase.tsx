@@ -20,12 +20,6 @@ const steps: Step[] = [
     image: "/screenshots/panes.svg",
     alt: "Jelly with three split panes",
   },
-  {
-    title: "Projects one click away",
-    body: "Drag a folder onto the sidebar. Click it to open a new tab right there.",
-    image: "/screenshots/hero.svg",
-    alt: "Jelly sidebar with saved projects",
-  },
 ];
 
 export default function ScrollShowcase() {

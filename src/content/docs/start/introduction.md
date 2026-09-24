@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: "What Jelly is, who it is for, and a tour of the window: sessions, projects, tabs, panes, explorer and status bar."
+description: "What Jelly is, who it is for, and a tour of the window: sessions, tabs, panes, explorer and status bar."
 order: 1
 ---
 
@@ -11,7 +11,6 @@ Jelly is a terminal made for the Mac. It looks like it belongs on macOS 26, with
 ## What makes it different
 
 - **Sessions.** Named workspaces such as *Work* or *Personal*. Each one holds its own tabs and split panes.
-- **Projects.** Folders saved in the sidebar. One click opens a tab there.
 - **A file explorer and viewer built in.** See what is changing on disk while an agent works, and read Markdown without leaving the terminal.
 - **Plain-text configuration.** One `jelly.toml` for settings, keybinds and themes.
 - **Your shell, unchanged.** fish, zsh, bash, nu, starship, powerlevel10k, Nerd Fonts, ligatures and emoji all render as they do in Ghostty or iTerm2.
@@ -37,8 +36,8 @@ Some features have no button and no menu item to tell you they exist.
 │  ▸ Work    │                 pane                         │
 │    Personal│                                              │
 │    ...     ├────────────────────────┬─────────────────────┤
-│ Projects   │ ⌁ zsh           ⑂ ⤢   │ ⌁ logs              │  pane headers
-│    aurora  │                        │                     │
+│            │ ⌁ zsh           ⑂ ⤢   │ ⌁ logs              │  pane headers
+│            │                        │                     │
 │            │                        │                     │
 │            │                ◉ dev · 3 panes · 112×28      │  status bar
 └────────────┴──────────────────────────────────────────────┘
@@ -46,7 +45,7 @@ Some features have no button and no menu item to tell you they exist.
 
 | Area | What it does |
 |---|---|
-| **Sidebar** | Sessions and Projects. Toggle it with <kbd>⌘0</kbd>. |
+| **Sidebar** | Sessions. Toggle it with <kbd>⌘0</kbd>. |
 | **Tab bar** | One tab per workspace view. `+` opens a tab, `⌕` opens search. |
 | **Panes** | Detached rounded cards you can split as deep as you like. |
 | **Status bar** | Session name, tab count, pane count, and the grid size of the focused pane. |

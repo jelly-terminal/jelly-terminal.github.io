@@ -17,7 +17,7 @@ Jelly is in early development. Config keys and behaviour can change until the st
 | Idea | Why |
 |---|---|
 | **Notes per directory** | Notes saved locally per project folder and exposed over MCP so agents in the terminal can read and write them. |
-| **Command palette** (<kbd>⌘K</kbd>) | Every action, session, project and theme in one searchable list. |
+| **Command palette** (<kbd>⌘K</kbd>) | Every action, session and theme in one searchable list. |
 | **Quick Terminal** | A drop-down window on a global hotkey. |
 | **Command blocks** | Fold, copy or re-run one command's output, and jump between prompts. |
 | **Per-project `jelly.toml`** | A folder defines its own tabs, split layout, startup commands and theme. |

@@ -1,7 +1,7 @@
 ---
 title: Search in scrollback
 description: "Find text in everything the focused pane has printed, with next and previous match and a match count."
-order: 5
+order: 4
 ---
 
 Press <kbd>⌘F</kbd>, or click `⌕` in the tab bar, to search the focused pane's scrollback. Jelly shows the match count and lets you step to the next and previous match.
