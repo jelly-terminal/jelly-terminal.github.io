@@ -1,29 +1,12 @@
 ---
 title: Roadmap
-description: "What is in each Jelly version, and what may come later. Everything before v1 is a preview."
+description: "What is coming next and later, and the stable launch at v1.0.0."
 order: 1
 ---
 
-Everything before v1 is a preview. Config keys and behaviour can change between versions.
+Jelly is in early development. Config keys and behaviour can change until the stable launch at v1.0.0.
 
-## v0.1: Core terminal
-
-- Single window with SwiftUI chrome, a Liquid Glass tab bar and status bar
-- A GPU-rendered terminal with shell launch, font fallback, ligatures and OpenType features
-- Tabs
-- Sidebar with Sessions and Projects, restored on relaunch
-- `jelly.toml` with live reload, an error banner, built-in themes and TOML import with preview
-- Automatic updates
-
-## v0.2: Workspace
-
-- Split panes with headers, zoom and keyboard focus
-- Split layout restore on relaunch and after updates
-- Search in scrollback
-- Status bar details
-- A read-only file explorer that follows the focused pane, with a Markdown and text viewer and syntax highlighting
-
-## v0.3: Connect
+## Next
 
 - Saved SSH hosts under **Connect…**, opened as a tab or a session
 - Per-host theme override, for example a red tint for Production
@@ -44,5 +27,9 @@ Everything before v1 is a preview. Config keys and behaviour can change between 
 | **Triggers** | Regex on output to highlight, notify or run an action. |
 | **Native notifications** | "Long command finished" and OSC 9 / 777 notifications. |
 | **tmux control mode** | tmux windows and panes shown as native tabs and splits. |
+
+## Stable launch
+
+v1.0.0 is the first stable release. Config keys and behaviour are settled from there.
 
 The source of truth is [docs/roadmap.md](https://github.com/jelly-terminal/jelly/blob/main/docs/roadmap.md) in the app repo.
