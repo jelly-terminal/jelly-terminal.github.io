@@ -8,7 +8,7 @@ Press <kbd>⌘,</kbd> to open Settings. It has five tabs:
 
 | Tab | What you set |
 |---|---|
-| **General** | Startup and behaviour, such as confirm on quit. |
+| **General** | Startup and behaviour, such as confirm on quit, and the quick terminal shortcut. |
 | **Appearance** | The theme library with preview swatches. Pick one theme, or a light and dark pair. |
 | **Terminal** | Font, cursor, scrollback and shell. |
 | **Keybinds** | Every action by group. Click a shortcut and press new keys to rebind it. |

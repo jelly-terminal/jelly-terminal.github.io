@@ -11,6 +11,7 @@ Jelly is a terminal made for the Mac. It looks like it belongs on macOS 26, with
 ## What makes it different
 
 - **Sessions.** Named workspaces such as *Work* or *Personal*. Each one holds its own tabs and split panes.
+- **A quick terminal from any app.** <kbd>⌃Space</kbd> opens your shell in a floating panel over whatever you're doing. See [Quick terminal](/docs/workspace/quick-terminal/).
 - **A file explorer and viewer built in.** See what is changing on disk while an agent works, and read Markdown without leaving the terminal.
 - **Plain-text configuration.** One `jelly.toml` for settings, keybinds and themes.
 - **Your shell, unchanged.** fish, zsh, bash, nu, starship, powerlevel10k, Nerd Fonts, ligatures and emoji all render as they do in Ghostty or iTerm2.

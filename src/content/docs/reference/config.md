@@ -35,6 +35,8 @@ Settings live under `[settings]` in `~/.config/jelly/jelly.toml`. See [Config fi
 | `clipboard.osc52-read` | bool | `false` | Let programs read the clipboard. Writing is always allowed. |
 | `updates.check` | bool | `true` | Daily update check. |
 | `updates.auto-install` | bool | `false` | Download in the background and install on quit. |
+| `quick-terminal.enabled` | bool | `true` | Open the [quick terminal](/docs/workspace/quick-terminal/) with its shortcut from any app. |
+| `quick-terminal.hotkey` | string | `"ctrl+space"` | Global shortcut, like `"cmd+shift+space"`. Needs a modifier, except `f1`–`f20`. `"none"` turns it off. |
 
 ## Full example
 
@@ -78,6 +80,10 @@ osc52-read = false
 [settings.updates]
 check = true
 auto-install = false
+
+[settings.quick-terminal]
+enabled = true
+hotkey = "ctrl+space"
 
 [keybinds]
 "cmd+d" = "split.right"

@@ -46,6 +46,15 @@ All of these can be rebound in Settings → Keybinds or under `[keybinds]`. See 
 
 Keys inside the explorer, including type-to-filter, are listed in [Search files](/docs/explore/search-files/).
 
+## Quick terminal
+
+| Action | Keys |
+|---|---|
+| Show or hide from any app | <kbd>⌃Space</kbd> |
+| Move it into a Jelly tab | <kbd>⌘↩</kbd> |
+
+The shortcut is set under Settings → General, not Keybinds. See [Quick terminal](/docs/workspace/quick-terminal/).
+
 ## General
 
 | Action | Keys |
