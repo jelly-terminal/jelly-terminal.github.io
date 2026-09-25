@@ -21,9 +21,9 @@ src/
   components/ui/                Screenshot, SectionHeader
   data/                         features, links
   styles/global.css             colour tokens and reveal animation
-public/screenshots/             app screenshots (placeholders for now)
+public/screenshots/             app screenshots
 ```
 
 Add `data-reveal` (and `style="--d:N"` to stagger) to any element to fade it in on scroll.
 
-To swap in real screenshots, drop PNGs into `public/screenshots/` and update the paths in `Hero.astro` and `ScrollShowcase.tsx`.
+The hero uses the full Jelly window screenshot. The scroll showcase presents sessions, quick terminal, and split panes in CSS frames that preserve each screenshot's proportions. Mobile displays each screenshot beside its feature copy, and reduced-motion preferences disable crossfades. To replace screenshots, update the PNGs in `public/screenshots/` and their dimensions in `Hero.astro` and `ScrollShowcase.tsx`.
