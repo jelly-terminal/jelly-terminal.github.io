@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import PostHog from "../components/PostHog.astro";
 
 interface Props {
   title?: string;
@@ -42,6 +43,7 @@ const imageUrl = new URL(image, Astro.site).href;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
     <slot name="head" />
+    {import.meta.env.PROD && <PostHog />}
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
