@@ -58,8 +58,8 @@ export default function ScrollShowcase() {
   }, []);
 
   return (
-    <div className="mt-14 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
-      <div className="top-0 hidden h-screen items-center lg:sticky lg:flex">
+    <div className="mt-14">
+      <div className="top-0 hidden h-screen items-center lg:sticky lg:grid lg:grid-cols-[1.4fr_1fr] lg:gap-16">
         <div className="showcase-stage relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-line">
           {steps.map((step, index) => (
             <div
@@ -72,9 +72,22 @@ export default function ScrollShowcase() {
             </div>
           ))}
         </div>
+        <div className="grid">
+          {steps.map((step, index) => (
+            <div
+              key={step.title}
+              aria-hidden={index !== active}
+              className="col-start-1 row-start-1 self-center border-l-2 border-accent pl-5 transition-opacity duration-500 motion-reduce:transition-none"
+              style={{ opacity: index === active ? 1 : 0 }}
+            >
+              <h3 className="font-medium">{step.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{step.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <ol className="flex flex-col gap-10 lg:gap-0">
+      <ol className="flex flex-col gap-10 lg:-mt-[100vh] lg:gap-0">
         {steps.map((step, index) => (
           <li
             key={step.title}
@@ -82,13 +95,13 @@ export default function ScrollShowcase() {
               stepRefs.current[index] = el;
             }}
             data-index={index}
-            className="flex flex-col justify-center lg:min-h-[60vh]"
+            className="flex flex-col justify-center lg:pointer-events-none lg:h-screen"
           >
             <div className={`showcase-stage showcase-visual showcase-${step.kind} mb-6 aspect-[16/10] w-full overflow-hidden rounded-xl border border-line lg:hidden`}>
               <img src={step.image} alt={step.alt} width={step.width} height={step.height} loading="lazy" decoding="async" />
             </div>
             <div
-              className="border-l-2 pl-5 transition-colors duration-300"
+              className="border-l-2 pl-5 transition-colors duration-300 lg:hidden"
               style={{ borderColor: index === active ? "var(--color-accent)" : "var(--color-line)" }}
             >
               <h3 className="font-medium">{step.title}</h3>
