@@ -15,10 +15,22 @@ const steps: Step[] = [
     alt: "Jelly sidebar listing sessions",
   },
   {
+    title: "A terminal one keystroke away",
+    body: "Press ⌃Space over any app for a floating panel with your own shell. Esc hides it, ⌘↩ moves it into a tab with everything still running.",
+    image: "/screenshots/quick-terminal.svg",
+    alt: "Jelly quick terminal floating over another app",
+  },
+  {
     title: "Panes that stay out of the way",
     body: "Split right with ⌘D, down with ⌘⇧D. Drag the gap to resize, double-click it to even things out.",
     image: "/screenshots/panes.svg",
     alt: "Jelly with three split panes",
+  },
+  {
+    title: "Know when your agent needs you",
+    body: "Run Claude Code in any pane. Tabs show whether it's working, waiting on you or done, you get a notification, and ⌘⇧A jumps straight to it.",
+    image: "/screenshots/agents.svg",
+    alt: "Jelly tabs showing Claude Code working and waiting",
   },
 ];
 
@@ -41,8 +53,8 @@ export default function ScrollShowcase() {
 
   return (
     <div className="mt-14 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
-      <div className="top-24 hidden h-fit lg:sticky lg:block">
-        <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-line bg-surface">
+      <div className="top-0 hidden h-screen items-center lg:sticky lg:flex">
+        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-line bg-surface">
           {steps.map((step, index) => (
             <img
               key={step.title}

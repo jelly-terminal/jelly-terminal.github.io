@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12142e"/>
+      <stop offset="1" stop-color="#0c0d22"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.45" r="0.5">
+      <stop offset="0" stop-color="#ff9a7a" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#c56cf0" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.04"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+  <circle cx="44" cy="40" r="11" fill="#ff5f57"/>
+  <circle cx="80" cy="40" r="11" fill="#febc2e"/>
+  <circle cx="116" cy="40" r="11" fill="#28c840"/>
+  <text x="800" y="490" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="44" fill="#e9e6ff" fill-opacity="0.85">Quick terminal</text>
+  <text x="800" y="550" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="24" fill="#a7a3d6" fill-opacity="0.7">screenshot placeholder · 1600 × 1000</text>
+</svg>

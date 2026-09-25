@@ -1,4 +1,4 @@
-import { AppleLogo, Cpu, FileCode, ShieldCheck, SquaresFour, Stack } from "@phosphor-icons/react/ssr";
+import { Cpu, FileCode, ShieldCheck, SquaresFour, Stack, TerminalWindow } from "@phosphor-icons/react/ssr";
 import type { Icon } from "@phosphor-icons/react";
 
 export interface Feature {
@@ -34,8 +34,8 @@ export const features: Feature[] = [
     body: "A bad value falls back to its default and Jelly tells you which line.",
   },
   {
-    icon: AppleLogo,
-    title: "Native",
-    body: "SwiftUI and AppKit. Your shell, prompt and Nerd Font look exactly right.",
+    icon: TerminalWindow,
+    title: "Quick terminal",
+    body: "⌃Space from any app opens your shell in a floating panel. ⌘↩ moves it into a full tab.",
   },
 ];
