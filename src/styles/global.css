@@ -38,6 +38,20 @@
 }
 
 @layer components {
+.showcase {
+  container-type: inline-size;
+}
+
+@media (min-width: 64rem) {
+  .showcase-sticky {
+    top: 5rem;
+  }
+
+  .showcase-step {
+    min-height: calc((100cqw - 3rem) * 0.39351852);
+  }
+}
+
 .showcase-stage {
   background: radial-gradient(ellipse at 25% 15%, #29354d 0, transparent 65%),
     radial-gradient(ellipse at 90% 100%, #292039 0, transparent 65%), #0d111b;
@@ -47,7 +61,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5%;
+  padding: 3%;
 }
 
 .showcase-visual img {

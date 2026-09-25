@@ -43,23 +43,43 @@ const steps: Step[] = [
 export default function ScrollShowcase() {
   const [active, setActive] = useState(0);
   const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const visualRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(Number((entry.target as HTMLElement).dataset.index));
+    let frame = 0;
+    const update = () => {
+      const visual = visualRef.current?.getBoundingClientRect();
+      const center = visual?.height ? visual.top + visual.height / 2 : window.innerHeight / 2;
+      let closest = 0;
+      let distance = Infinity;
+      stepRefs.current.forEach((step, index) => {
+        if (!step) return;
+        const rect = step.getBoundingClientRect();
+        const nextDistance = Math.abs(rect.top + rect.height / 2 - center);
+        if (nextDistance < distance) {
+          closest = index;
+          distance = nextDistance;
         }
-      },
-      { rootMargin: "-45% 0px -45% 0px" },
-    );
-    stepRefs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
+      });
+      setActive(closest);
+    };
+    const schedule = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+    schedule();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
   }, []);
 
   return (
-    <div className="mt-14">
-      <div className="top-0 hidden h-screen items-center lg:sticky lg:grid lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+    <div className="showcase mt-10 grid gap-10 lg:grid-cols-[1.7fr_1fr] lg:gap-12">
+      <div ref={visualRef} className="showcase-sticky hidden self-start lg:sticky lg:block">
         <div className="showcase-stage relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-line">
           {steps.map((step, index) => (
             <div
@@ -72,22 +92,10 @@ export default function ScrollShowcase() {
             </div>
           ))}
         </div>
-        <div className="grid">
-          {steps.map((step, index) => (
-            <div
-              key={step.title}
-              aria-hidden={index !== active}
-              className="col-start-1 row-start-1 self-center border-l-2 border-accent pl-5 transition-opacity duration-500 motion-reduce:transition-none"
-              style={{ opacity: index === active ? 1 : 0 }}
-            >
-              <h3 className="font-medium">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{step.body}</p>
-            </div>
-          ))}
-        </div>
+
       </div>
 
-      <ol className="flex flex-col gap-10 lg:-mt-[100vh] lg:gap-0">
+      <ol className="flex flex-col gap-10 lg:gap-[20vh]">
         {steps.map((step, index) => (
           <li
             key={step.title}
@@ -95,13 +103,13 @@ export default function ScrollShowcase() {
               stepRefs.current[index] = el;
             }}
             data-index={index}
-            className="flex flex-col justify-center lg:pointer-events-none lg:h-screen"
+            className="showcase-step flex flex-col justify-center"
           >
             <div className={`showcase-stage showcase-visual showcase-${step.kind} mb-6 aspect-[16/10] w-full overflow-hidden rounded-xl border border-line lg:hidden`}>
               <img src={step.image} alt={step.alt} width={step.width} height={step.height} loading="lazy" decoding="async" />
             </div>
             <div
-              className="border-l-2 pl-5 transition-colors duration-300 lg:hidden"
+              className="border-l-2 pl-5 transition-colors duration-300"
               style={{ borderColor: index === active ? "var(--color-accent)" : "var(--color-line)" }}
             >
               <h3 className="font-medium">{step.title}</h3>
