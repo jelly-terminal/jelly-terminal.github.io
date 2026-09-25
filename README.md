@@ -17,7 +17,7 @@ src/
   layouts/Layout.astro          head, fonts, scroll-reveal observer
   pages/index.astro             section order
   components/sections/          one file per page section
-  components/islands/           ScrollShowcase (React)
+  components/islands/           FeatureShowcase (React)
   components/ui/                Screenshot, SectionHeader
   data/                         features, links
   styles/global.css             colour tokens and reveal animation
@@ -26,4 +26,4 @@ public/screenshots/             app screenshots
 
 Add `data-reveal` (and `style="--d:N"` to stagger) to any element to fade it in on scroll.
 
-The hero uses the full Jelly window screenshot. The scroll showcase presents sessions, quick terminal, and split panes in CSS frames that preserve each screenshot's proportions. On desktop, descriptions scroll beside a larger sticky screenshot. Each description row matches the image height, so the first pair sits directly below the section heading without a full-screen spacer. Mobile displays each screenshot above its feature copy, and reduced-motion preferences disable crossfades. To replace screenshots, update the PNGs in `public/screenshots/` and their dimensions in `Hero.astro` and `ScrollShowcase.tsx`.
+The hero uses the full Jelly window screenshot. The feature showcase uses three matching SVG illustrations in `public/illustrations/`, with website colors and consistent window styling. Visitors switch features using buttons or the Left/Right, Home, and End keys. The compact panel stacks on mobile and has no scroll-driven transitions or automatic advancement. Edit the feature copy and illustration paths in `FeatureShowcase.tsx`.
